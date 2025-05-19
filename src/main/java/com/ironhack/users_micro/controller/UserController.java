@@ -1,5 +1,6 @@
 package com.ironhack.users_micro.controller;
 
+import com.ironhack.users_micro.dto.UserWithAccountsDTO;
 import com.ironhack.users_micro.dto.UserPatchAccountDTO;
 import com.ironhack.users_micro.exception.UserNotFoundException;
 import com.ironhack.users_micro.model.User;
@@ -22,22 +23,6 @@ public class UserController {
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable long id) {
-        try {
-            User foundUser = userService.getUserById(id);
-            return new ResponseEntity<>(foundUser, HttpStatus.FOUND);
-        } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
     @PatchMapping("/account/{userId}")
